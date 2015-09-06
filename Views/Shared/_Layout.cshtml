@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="shortcut icon" href="~/Content/assets/images/gt_favicon.png">
+	
+	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" href="~/Content/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/assets/css/lightbox.css">
+	<link rel="stylesheet" href="~/Content/assets/css/font-awesome.min.css">
+
+	<!-- Custom styles for our template -->
+	<link rel="stylesheet" href="~/Content/assets/css/bootstrap-theme.css" media="screen" >
+	<link rel="stylesheet" href="~/Content/assets/css/main.css">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="assets/js/html5shiv.js"></script>
+	<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body class="home">
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+				<a class="navbar-brand" href=""><img src="~/Content/assets/flip.jpg" height="50px"></a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right">
+					<li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
+					<li>@Html.ActionLink("Create Album", "CreateAlbum", "User")</li>
+                    <li><a href="">About</a></li>
+                    @if (Request.IsAuthenticated)
+                    {
+                    <li>@Html.ActionLink("Log Out", "Logout", "User", null, new {@class="btn" })</li> 
+                    }
+                    else{
+					<li>@Html.ActionLink("SIGN IN / SIGN UP", "LogIn", "User", null, new {@class="btn" })</li>
+                    }
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div> 
+	<!-- /.navbar -->
+
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="~/Content/assets/js/headroom.min.js"></script>
+	<script src="~/Content/assets/js/jQuery.headroom.min.js"></script>
+	<script src="~/Content/assets/js/template.js"></script>
+    <script src="~/Content/assets/js/lightbox.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

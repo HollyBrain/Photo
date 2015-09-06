@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PhotoModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PhotoModelStoreContainer">
+    <EntitySet Name="Albums" EntityType="PhotoModel.Store.Albums" store:Type="Tables" />
+    <EntitySet Name="Photos" EntityType="PhotoModel.Store.Photos" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="PhotoModel.Store.Users" store:Type="Tables" />
+    <AssociationSet Name="PK_Albums_FK_Photos" Association="PhotoModel.Store.PK_Albums_FK_Photos">
+      <End Role="Albums" EntitySet="Albums" />
+      <End Role="Photos" EntitySet="Photos" />
+    </AssociationSet>
+    <AssociationSet Name="PK_Users_FK_Albums" Association="PhotoModel.Store.PK_Users_FK_Albums">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Albums" EntitySet="Albums" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Albums">
+    <Key>
+      <PropertyRef Name="AlbumId" />
+    </Key>
+    <Property Name="AlbumId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="AlbumName" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="AlbumFace" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="User" Type="nvarchar" Nullable="false" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="Photos">
+    <Key>
+      <PropertyRef Name="PhotoId" />
+    </Key>
+    <Property Name="PhotoId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PhotoPath" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="AlbumId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="UserFace" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <Association Name="PK_Albums_FK_Photos">
+    <End Role="Albums" Type="PhotoModel.Store.Albums" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Photos" Type="PhotoModel.Store.Photos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Albums">
+        <PropertyRef Name="AlbumId" />
+      </Principal>
+      <Dependent Role="Photos">
+        <PropertyRef Name="AlbumId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PK_Users_FK_Albums">
+    <End Role="Users" Type="PhotoModel.Store.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Albums" Type="PhotoModel.Store.Albums" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="Albums">
+        <PropertyRef Name="User" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
